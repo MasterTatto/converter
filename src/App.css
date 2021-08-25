@@ -1,0 +1,105 @@
+.App {
+
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.main {
+    margin: 100px auto;
+    height: 600px;
+    width: 900px;
+    border: 4px solid cornflowerblue;
+    border-radius: 10px;
+    padding: 30px 40px;
+    background-color: whitesmoke;
+}
+
+.h1 {
+    /*border: 1px solid;*/
+    max-width: 300px;
+    margin: 0 auto
+}
+
+.currentCur {
+    display: flex;
+    align-items: center;
+    /*border: 1px solid;*/
+    max-width: 350px;
+    justify-content: space-between;
+    margin: 60px 0 20px 0;
+}
+
+.currentCur div {
+    /*border: 1px solid ;*/
+    width: 200px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn {
+    border: 2px solid cornflowerblue;
+    outline: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0);
+    transition: all .3s ease-in;
+}
+
+.btnActive {
+    border: 2px solid cornflowerblue;
+    outline: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all .3s ease-in;
+    background-color: cornflowerblue;
+    color: #fff
+}
+
+.SellBuy {
+    /*border: 1px solid;*/
+    display: flex;
+    justify-content: space-between;
+    padding: 45px 0;
+}
+
+.SellBuyBtn {
+    padding: 15px 150px;
+    border: 3px solid cornflowerblue;
+    outline: none;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0);
+    color: cornflowerblue;
+    font-size: 25px;
+    cursor: pointer;
+    transition: all .5s ease
+}
+
+.active {
+    padding: 15px 150px;
+    border: 3px solid cornflowerblue;
+    outline: none;
+    border-radius: 20px;
+    font-size: 25px;
+    cursor: pointer;
+    transition: all .5s ease;
+    background-color: cornflowerblue;
+    color: #fff
+}
+
+.currentChange input {
+    width: 100%;
+    padding: 10px 0;
+
+}
+
+.currentChange {
+    padding-top: 35px;
+}
+
+
