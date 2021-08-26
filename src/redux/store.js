@@ -7,3 +7,4 @@ const reducerPac = combineReducers({
 
 
 export const store = createStore(reducerPac)
+window.store = store

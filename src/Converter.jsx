@@ -40,9 +40,6 @@ const Converter = (props) => {
                 <p>Current currency :</p>
                 <div>
                     {btn}
-                    {/*<button className={`btn`}>{props.currencyName}</button>*/}
-                    {/*<button className={`btn`}>{props.currencyName}</button>*/}
-                    {/*<button className={`btn`}>{props.currencyName}</button>*/}
                 </div>
             </div>
             <div className={'SellBuy'}>

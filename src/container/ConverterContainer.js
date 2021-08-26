@@ -1,26 +1,72 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Converter from "../Converter";
 import {useDispatch, useSelector} from "react-redux";
 import {select} from "../redux/selected";
-import {BuySellAC, ChangeCurrencyAC, CulcCurrency, CulcCurrencyAC} from "../redux/converter-reducer";
+import {
+    AddCurrencyAC,
+    AddCurrencyNameAC,
+    AddUSDCurrencyAC,
+    BuySellAC,
+    ChangeCurrencyAC,
+    CulcCurrency,
+    CulcCurrencyAC
+} from "../redux/converter-reducer";
+import axios from "axios";
+import {logDOM} from "@testing-library/react";
 
 const ConverterContainer = () => {
+    const [load, setLoad] = useState(false)
     const state = useSelector(select)
     const dispatch = useDispatch()
+    useEffect(() => {
+        setLoad(true)
+        axios.get('https://www.nbrb.by/api/exrates/rates/usd?parammode=2')
+            .then(response => {
+                    setLoad(false)
+                    dispatch(AddCurrencyAC(response.data))
+                }
+            )
+
+    }, [])
+    //
+    useEffect(() => {
+        setLoad(true)
+        axios.get('https://www.nbrb.by/api/exrates/rates/978?parammode=1')
+            .then(response => {
+                setLoad(false)
+                dispatch(AddCurrencyAC(response.data))
+            })
+
+    }, [])
+    //
+    useEffect(() => {
+        setLoad(true)
+        axios.get('https://www.nbrb.by/api/exrates/rates/643?parammode=1')
+            .then(response => {
+                setLoad(false)
+                dispatch(AddCurrencyAC(response.data))
+            })
+
+    }, [])
+    //
+    //
     let currencyRate = 0;
     const currencyName = state.currencies.map((n) => {
-        if (state.currentCurrency === n.currencyName) {
-            currencyRate = state.isBuying ? n.buyRate : n.sellRate
-
+        console.log(n)
+        if (state.currentCurrency === n.Cur_Abbreviation) {
+            currencyRate = state.isBuying ? +Number(n.Cur_OfficialRate) : +Number(n.Cur_OfficialRate)
         }
-        return n.currencyName
+        if(state.currentCurrency === 'RUB'){
+            currencyRate = state.isBuying ? (+Number(n.Cur_OfficialRate) / +Number(100)) : (+Number(n.Cur_OfficialRate) / +Number(100))
+        }
+        return n.Cur_Abbreviation
     })
+    console.log(state)
 
     function changeCurrency(value) {
         dispatch(ChangeCurrencyAC(value))
     }
 
-    console.log(state)
 
     function changeSellBuy(e) {
         e.currentTarget.dataset.action === 'buy' ? dispatch(BuySellAC(true)) : dispatch(BuySellAC(false))
@@ -45,11 +91,13 @@ const ConverterContainer = () => {
         }
     }
 
-    return <Converter isBuying={state.isBuying} changeSellBuy={changeSellBuy} currencyRate={currencyRate}
-                      currencyName={currencyName} currentCurrency={state.currentCurrency}
-                      changeCurrency={changeCurrency} culcCurrency={culcCurrency}
-                      amountOfBYN={state.amountOfBYN}
-                      amountOfCurrency={state.amountOfCurrency}/>
+    return load ? <div>Wait pleas</div> :
+        <Converter isBuying={state.isBuying} changeSellBuy={changeSellBuy} currencyRate={currencyRate}
+                   currencyName={currencyName} currentCurrency={state.currentCurrency}
+                   changeCurrency={changeCurrency} culcCurrency={culcCurrency}
+                   amountOfBYN={state.amountOfBYN}
+                   amountOfCurrency={state.amountOfCurrency}/>
 };
 
-export default ConverterContainer;
+
+export default ConverterContainer
